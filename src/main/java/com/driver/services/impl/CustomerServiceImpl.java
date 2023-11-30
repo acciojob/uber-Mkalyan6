@@ -60,8 +60,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 		TripBooking tripBooking=new TripBooking();
 
-		if(optionalCustomer.isPresent()){
-			customer=optionalCustomer.get();
+		if(optionalCustomer.isPresent()) {
+			customer = optionalCustomer.get();
 
 
 			// create a tripbooking object
@@ -70,25 +70,29 @@ public class CustomerServiceImpl implements CustomerService {
 			tripBooking.setDistanceInKm(distanceInKm);
 			tripBooking.setCustomer(customer);
 
-			for(Driver driver:driverList){
-				if(driver.getCab().isAvailable()){
+			for (Driver driver : driverList) {
+				if (driver.getCab().isAvailable()) {
 					tripBooking.setDriver(driver);
-					int totalBill=driver.getCab().getPerKmRate()*distanceInKm;
+					int totalBill = driver.getCab().getPerKmRate() * distanceInKm;
 					tripBooking.setBill(totalBill);
 					tripBooking.setStatus(TripStatus.CONFIRMED);
 
 					// All attributes are set for trip booking , save to db
 					tripBookingRepository2.save(tripBooking);
+					customerRepository2.save(customer);
+
 					return tripBooking;
 				}
 			}
-
 			if(tripBooking.getDriver()==null){
 				throw new Exception("No cab available!");
 			}
-
 		}
-		customerRepository2.save(customer);
+
+		    customerRepository2.save(customer);
+
+
+
 
 		return tripBooking; // if customer itself is not present with id;
 
