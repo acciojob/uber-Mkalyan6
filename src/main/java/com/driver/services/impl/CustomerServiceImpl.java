@@ -80,6 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
 					// All attributes are set for trip booking , save to db
 					tripBookingRepository2.save(tripBooking);
 					customerRepository2.save(customer);
+					driverRepository2.save(driver);
 
 					return tripBooking;
 				}
