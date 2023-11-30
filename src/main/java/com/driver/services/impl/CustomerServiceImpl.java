@@ -83,6 +83,8 @@ public class CustomerServiceImpl implements CustomerService {
 			if(tripBooking.getDriver()==null){
 				throw new Exception("No cab available!");
 			}
+			customerRepository2.save(customer);
+
 		}
 		return tripBooking; // if customer itself is not present with id;
 
