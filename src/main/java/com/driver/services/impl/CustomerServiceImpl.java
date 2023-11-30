@@ -55,11 +55,14 @@ public class CustomerServiceImpl implements CustomerService {
 		// create TripBooking object and find the driver for the trip from drivers table who is availabe
 		List<Driver>driverList=driverRepository2.findAll();
 		Optional<Customer>optionalCustomer=customerRepository2.findById(customerId);
+		Customer customer=new Customer();
+
 
 		TripBooking tripBooking=new TripBooking();
 
 		if(optionalCustomer.isPresent()){
-			Customer customer=optionalCustomer.get();
+			customer=optionalCustomer.get();
+
 
 			// create a tripbooking object
 			tripBooking.setFromLocation(fromLocation);
@@ -83,9 +86,10 @@ public class CustomerServiceImpl implements CustomerService {
 			if(tripBooking.getDriver()==null){
 				throw new Exception("No cab available!");
 			}
-			customerRepository2.save(customer);
 
 		}
+		customerRepository2.save(customer);
+
 		return tripBooking; // if customer itself is not present with id;
 
 	}
@@ -98,6 +102,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if(optionalTripBooking.isPresent()) {
 			TripBooking tripBooking = optionalTripBooking.get();
 			tripBooking.setStatus(TripStatus.CANCELED);
+			tripBooking.setBill(0);
 			// change the status to competed and update it in db
 			tripBookingRepository2.save(tripBooking);
 		}
