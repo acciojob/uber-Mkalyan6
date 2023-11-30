@@ -34,6 +34,10 @@ public class Cab{
         return available;
     }
 
+    public boolean getAvailable(){
+        return available;
+    }
+
     public Driver getDriver() {
         return driver;
     }
